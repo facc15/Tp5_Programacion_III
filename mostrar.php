@@ -22,8 +22,8 @@
 </head>
 <body>
     <h2>Listado de Empleados</h2>
-    <form  name="form" id="form" action="index.php">
-    <input type="hidden" id="idHidden" >
+    <form  action="index.php" method="POST" name="form" id="formModificar" >
+    <input type="hidden" name="hiddenModificar" id="hiddenModificar" >
     </form>
     
 </body>
@@ -38,8 +38,6 @@
     include_once './Backend/validarSesion.php';
     
 
-
-    $i=0;
     $fabrica=new Fabrica("Utn",7);
 
     $fabrica->TraerDeArchivo("Archivos/empleados.txt");
@@ -54,7 +52,7 @@
             echo "<table>
                 <tr>    <td>{$empleado->ToString()} </td>
                         <td><img src={$empleado->GetPathFoto()} width='90' height='90'><a href='eliminar.php?legajo={$empleado->GetLegajo()}'>Eliminar </a> </td>
-                        <td><input type='button' value='Modificar' onclick='AdministrarModificar({$empleado->GetLegajo()})' /></td> 
+                        <td><input type='button' value='Modificar' onclick='AdministrarModificar({$empleado->GetDni()})' /></td> 
                 </tr> </table>";
            
     }
@@ -65,6 +63,6 @@
 ?>
 
 
- <br><a href='index.html'>Alta de empleados </a>
+ <br><a href='index.php'>Alta de empleados </a>
  <br>
  <br><a href='./Backend/cerrarSesion.php'>Desloguear </a>

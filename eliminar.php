@@ -47,12 +47,12 @@ while(!feof($f))
             echo "<br><b>Empleado eliminado: </b>";
             echo $empleado->GetLegajo(). " - ".$empleado->GetApellido(). " " .$empleado->GetNombre();
             echo "<br><br><br><a href='mostrar.php'>Mostrar lista</a>";
-            echo "<br><a href='index.html'>Volver a la página principal </a>";
+            echo "<br><a href='index.php'>Volver a la página principal </a>";
         }else
         {
             echo "<br><b>No se pudo eliminar al empleado</b>";
             echo "<br><a href='mostrar.php'>Mostrar lista</a>";
-            echo "<br><a href='index.html'>Volver a la página principal </a>";
+            echo "<br><a href='index.php'>Volver a la página principal </a>";
         }
 
      }

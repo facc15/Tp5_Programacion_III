@@ -1,7 +1,32 @@
 "use strict";
 function AdministrarModificar(dni) {
-    alert(dni);
-    document.getElementById("idHidden").value = dni.toString();
+    document.getElementById("hiddenModificar").value = dni.toString();
+    document.getElementById("formModificar").submit();
+}
+function ModificarEmpleado(nombre, apellido, dni, sexo, legajo, sueldo, turno) {
+    document.title = "HTML5 Formulario Modificar Empleado";
+    document.getElementById("idTitulo").innerHTML = "Modificar Empleado";
+    document.getElementById("txtNombre").value = nombre;
+    document.getElementById("txtApellido").value = apellido;
+    document.getElementById("txtDni").value = dni;
+    document.getElementById("txtDni").readOnly = true;
+    document.getElementById("cboSexo").value = sexo;
+    document.getElementById("txtLegajo").value = legajo;
+    document.getElementById("txtLegajo").readOnly = true;
+    document.getElementById("txtSueldo").value = sueldo;
+    var checkTurno = "";
+    document.getElementById("txtSueldo").value = sueldo;
+    if (turno == "Mañana") {
+        checkTurno = "turnoMañana";
+    }
+    else if (turno == "Tarde") {
+        checkTurno = "turnoTarde";
+    }
+    else {
+        checkTurno = "turnoNoche";
+    }
+    document.getElementById(checkTurno).checked = true;
+    document.getElementById("hdnModificar").value = dni;
 }
 function AdministrarValidacionesLogin() {
     var idCampos = ["txtDni", "txtApellido"];

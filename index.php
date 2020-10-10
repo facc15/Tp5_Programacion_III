@@ -1,3 +1,26 @@
+<?php 
+
+require_once './Backend/validarSesion.php';
+
+require_once './Entidades/fabrica.php';
+
+require_once "./Entidades/empleado.php";
+
+if(isset($_POST["hiddenModificar"]))
+{	
+	$dni=$_POST["hiddenModificar"];
+	
+	$fabrica=new Fabrica("Utn",7);
+	
+	$fabrica->TraerDeArchivo("Archivos/empleados.txt");
+	$empleados=$fabrica->GetEmpleados();
+	
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 	<head>
@@ -16,13 +39,13 @@
 		</style>
 	</head>
 	<body>
-		<form action="administracion.php" method="POST" class="form-register" enctype="multipart/form-data" onsubmit="return AdministrarValidaciones()"
-		      >
+		<form action="administracion.php" method="POST" class="form-register" enctype="multipart/form-data" onsubmit="return AdministrarValidaciones()">
+		<input type="hidden" id="hdnModificar" name="hdnModificar" >		
 			<table>
 
 				<!-- HEAD -->
 				<thead>
-					<h2>Alta de empleados</h2>
+					<h2 id="idTitulo">Alta de empleados</h2>
 				</thead>
 
 				<!-- BODY -->
@@ -95,9 +118,9 @@
 					</tr>
 					<tr>
 						<td>
-							<input checked value="Mañana" id="checkTurno" type="radio" name="turno" />Mañana <br />
-							<input value="Tarde" id="checkTurno" type="radio" name="turno" />Tarde <br />
-							<input value="Noche" id="checkTurno" type="radio" name="turno" />Noche
+							<input checked value="Mañana" id="turnoMañana" type="radio" name="turno" />Mañana <br />
+							<input value="Tarde" id="turnoTarde" type="radio" name="turno" />Tarde <br />
+							<input value="Noche" id="turnoNoche" type="radio" name="turno" />Noche
 						</td>
 					</tr>
 					<tr>
@@ -127,7 +150,28 @@
 				</tbody>
 			</table>
 
-		
+			
 		</form>
+		<?php	
+		
+		if(isset($dni))
+        {          
+            foreach ($empleados as $item) 
+            { 
+                if ($item->GetDni() == $dni) 
+                {
+					
+					$nombre = $item->GetNombre();
+					$apellido = $item->GetApellido();
+                    $sexo = $item->GetSexo();
+                    $legajo = $item->GetLegajo();
+                    $sueldo = $item->GetSueldo();
+                    $turno = $item->GetTurno();
+					echo "<script>ModificarEmpleado('$nombre','$apellido','$dni','$sexo','$legajo','$sueldo','$turno');</script>";              
+                }
+			}
+		}	
+        ?>
+        <br><a href='./Backend/cerrarSesion.php'>Desloguear </a>
 	</body>
 </html>

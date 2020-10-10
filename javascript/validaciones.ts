@@ -1,12 +1,43 @@
 function AdministrarModificar(dni:number)
 {
-        alert(dni);
-
-        (<HTMLInputElement>document.getElementById("idHidden")).value=dni.toString();
+        (<HTMLInputElement>document.getElementById("hiddenModificar")).value=dni.toString();
+        (<HTMLFormElement>document.getElementById("formModificar")).submit();
 
         
 }
 
+function ModificarEmpleado(nombre:string,apellido:string,dni:string,sexo:string,legajo:string,sueldo:string,turno:string)
+{
+    document.title="HTML5 Formulario Modificar Empleado";
+    (<HTMLElement>document.getElementById("idTitulo")).innerHTML="Modificar Empleado";
+    
+    (<HTMLInputElement>document.getElementById("txtNombre")).value=nombre;
+    (<HTMLInputElement>document.getElementById("txtApellido")).value=apellido;
+    (<HTMLInputElement>document.getElementById("txtDni")).value=dni;
+    (<HTMLInputElement>document.getElementById("txtDni")).readOnly=true;
+
+    (<HTMLInputElement>document.getElementById("cboSexo")).value=sexo;
+    (<HTMLInputElement>document.getElementById("txtLegajo")).value=legajo;
+    (<HTMLInputElement>document.getElementById("txtLegajo")).readOnly=true;
+    (<HTMLInputElement>document.getElementById("txtSueldo")).value=sueldo;
+    let checkTurno="";
+    (<HTMLInputElement>document.getElementById("txtSueldo")).value=sueldo;
+    if(turno=="Mañana")
+    {  
+        checkTurno="turnoMañana";
+
+    }else if(turno=="Tarde")
+    {
+        checkTurno="turnoTarde";
+    }else
+    {
+        checkTurno="turnoNoche";
+    }
+    (<HTMLInputElement>document.getElementById(checkTurno)).checked=true;
+
+    (<HTMLInputElement>document.getElementById("hdnModificar")).value = dni;
+
+}
 
 function AdministrarValidacionesLogin()
 {

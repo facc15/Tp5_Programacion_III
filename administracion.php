@@ -15,6 +15,54 @@ $sexo=$_POST["sexo"];
 $sueldo=$_POST["sueldo"];
 $pathFoto=$_FILES["archivo"]["name"];
 
+$hdnModificar=$_POST["hdnModificar"];
+
+if(isset($hdnModificar))
+{
+    $f=fopen("./Archivos/empleados.txt","r");
+
+            while(!feof($f))
+            {
+            
+                $cadena=fgets($f);
+    
+                $e=explode(" - ",$cadena);
+    
+                if($e[0]==$dni)
+                {
+                  
+                    
+                $empleado=new Empleado($e[1],$e[2],$e[0],$e[3],$e[4],$e[5],$e[6]);
+
+                $empleado->SetPathFoto($e[7]);
+                    
+                $fabrica=new Fabrica("utn",7);
+                $fabrica->TraerDeArchivo("./Archivos/empleados.txt");
+
+                if($fabrica->EliminarEmpleado($empleado))
+                {
+                   
+                    $fabrica->GuardarEnArchivo("./Archivos/empleados.txt");
+                    $eliminarFoto=$empleado->GetPathFoto();
+                    $eliminarFoto=trim($eliminarFoto);
+
+                    if(!unlink("./".$eliminarFoto))
+                    {
+                       echo "no se pudo eliminar la foto"; 
+                    }
+
+                }
+                break;
+                    
+                }
+                    
+
+            }
+       
+            fclose($f);
+
+}
+
 $explode= explode(".", $pathFoto);
 $extension=array_pop($explode);
 
@@ -56,14 +104,14 @@ if(!getimagesize($_FILES["archivo"]["tmp_name"]))
                 }else
                 {
                     echo "<b>No se pudo agregar al empleado </b> <br><br>";
-                    echo "<a href='index.html'>Reintentar </a>";
+                    echo "<a href='index.php'>Reintentar </a>";
 
                 }
 
             }else
             {
                 echo "<h3>El archivo con ese nombre ya se encuentra!!!</h3>";
-                echo "<br><a href='index.html'>Volver </a>";
+                echo "<br><a href='index.php'>Volver </a>";
 
             }
             
@@ -72,14 +120,14 @@ if(!getimagesize($_FILES["archivo"]["tmp_name"]))
         }else
         {
             echo "<h3>El archivo es muy grande!!!</h3>";
-            echo "<br><a href='index.html'>Volver </a>";
+            echo "<br><a href='index.php'>Volver </a>";
         }
         
 
     }else
     {
         echo "<h3>El archivo tiene una extensión inválida!!!</h3>";
-        echo "<br><a href='index.html'>Volver </a>";
+        echo "<br><a href='index.php'>Volver </a>";
     }
     
 
